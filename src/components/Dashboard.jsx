@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TopBar from './TopBar'
 import ThisWeekView from './ThisWeekView'
 import SharedView from './SharedView'
@@ -10,6 +10,14 @@ export default function Dashboard({ data, setData, saving, userEmail, onSignOut 
   const [settingsOpen, setSettingsOpen] = useState(false)
 
   const lanes = data.settings?.lanes ?? []
+
+  // Tint the page background per view so each zone has its own color identity.
+  useEffect(() => {
+    document.body.dataset.view = view
+    return () => {
+      delete document.body.dataset.view
+    }
+  }, [view])
 
   return (
     <div className="app">

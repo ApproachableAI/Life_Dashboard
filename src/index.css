@@ -58,6 +58,26 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Per-view background tints — each zone gets its own color identity, kept
+   light enough that navy text and cream cards stay readable. */
+body[data-view='ty'] {
+  /* Navy / blue */
+  background:
+    radial-gradient(1100px 680px at 12% -10%, #dde5f6 0%, transparent 55%),
+    radial-gradient(1000px 760px at 112% 0%, #8295cf 0%, transparent 50%),
+    linear-gradient(160deg, #dbe3f4 0%, #97a8dd 100%);
+  background-attachment: fixed;
+}
+
+body[data-view='shared'] {
+  /* Rust / terracotta */
+  background:
+    radial-gradient(1100px 680px at 12% -10%, #f6dac6 0%, transparent 55%),
+    radial-gradient(1000px 760px at 112% 0%, #d2825a 0%, transparent 50%),
+    linear-gradient(160deg, #f0cdb6 0%, #d68d63 100%);
+  background-attachment: fixed;
+}
+
 button {
   font-family: inherit;
   cursor: pointer;

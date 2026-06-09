@@ -964,16 +964,49 @@ select.lane-select {
 .board-title {
   margin: 0;
   flex: 1;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: 800;
+}
+
+/* Wavy / scalloped sage frame around the cork board. The mask carves a wavy
+   silhouette out of the green panel on all four edges. Tune --s for wave size
+   and --frame for the color. */
+.cork-frame {
+  --s: 20px;
+  --frame: #9cb589;
+  padding: var(--s);
+  background: var(--frame);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  -webkit-mask:
+    radial-gradient(var(--s) at 50% 0, #000 97%, #0000) repeat-x 50% 0 /
+      calc(2 * var(--s)) var(--s),
+    radial-gradient(var(--s) at 50% 100%, #000 97%, #0000) repeat-x 50% 100% /
+      calc(2 * var(--s)) var(--s),
+    radial-gradient(var(--s) at 0 50%, #000 97%, #0000) repeat-y 0 50% /
+      var(--s) calc(2 * var(--s)),
+    radial-gradient(var(--s) at 100% 50%, #000 97%, #0000) repeat-y 100% 50% /
+      var(--s) calc(2 * var(--s)),
+    linear-gradient(#000 0 0) no-repeat 50% 50% /
+      calc(100% - 2 * var(--s)) calc(100% - 2 * var(--s));
+  mask:
+    radial-gradient(var(--s) at 50% 0, #000 97%, #0000) repeat-x 50% 0 /
+      calc(2 * var(--s)) var(--s),
+    radial-gradient(var(--s) at 50% 100%, #000 97%, #0000) repeat-x 50% 100% /
+      calc(2 * var(--s)) var(--s),
+    radial-gradient(var(--s) at 0 50%, #000 97%, #0000) repeat-y 0 50% /
+      var(--s) calc(2 * var(--s)),
+    radial-gradient(var(--s) at 100% 50%, #000 97%, #0000) repeat-y 100% 50% /
+      var(--s) calc(2 * var(--s)),
+    linear-gradient(#000 0 0) no-repeat 50% 50% /
+      calc(100% - 2 * var(--s)) calc(100% - 2 * var(--s));
 }
 
 .corkboard {
   position: relative;
-  min-height: 72vh;
-  border-radius: var(--radius-lg);
-  border: 12px solid #8a5a2b;
-  box-shadow: inset 0 0 55px rgba(60, 30, 0, 0.38), var(--shadow);
+  min-height: 70vh;
+  border-radius: 14px;
+  box-shadow: inset 0 0 55px rgba(60, 30, 0, 0.38);
   background-color: #c79a5e;
   /* Speckled cork texture */
   background-image:
@@ -1060,6 +1093,26 @@ select.lane-select {
 
 .note-text:focus {
   outline: none;
+}
+
+/* Image notes */
+.dream-note.is-image {
+  padding: 6px 6px 10px;
+}
+
+.note-img-wrap {
+  flex: 1;
+  min-height: 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.note-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
 }
 
 .note-del {

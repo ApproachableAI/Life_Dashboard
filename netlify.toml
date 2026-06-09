@@ -1,0 +1,11 @@
+# Netlify build + SPA routing config for the Vite/React app.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Single-page app: send every path to index.html so client routing works.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

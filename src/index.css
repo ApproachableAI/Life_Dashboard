@@ -579,6 +579,84 @@ select.lane-select {
   margin-top: 6px;
 }
 
+/* Google Calendar today view */
+.today-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.today-head .card-title {
+  margin: 0;
+}
+
+.link-btn {
+  border: 0;
+  background: transparent;
+  color: var(--text-soft);
+  font-weight: 700;
+  font-size: 0.76rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px 2px;
+}
+
+.link-btn:hover {
+  color: var(--plum);
+}
+
+.gcal-event {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  border-left: 5px solid var(--royal);
+  margin-bottom: 8px;
+}
+
+.gcal-time {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 76px;
+  font-size: 0.84rem;
+  color: var(--text);
+}
+
+.gcal-summary {
+  flex: 1;
+  font-weight: 700;
+  min-width: 0;
+}
+
+.join-btn {
+  border: 0;
+  background: var(--teal);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 6px 15px;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.12s ease, transform 0.12s ease;
+}
+
+.join-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.gcal-error {
+  color: var(--plum);
+  font-weight: 700;
+  font-size: 0.84rem;
+  margin: 8px 0 2px;
+}
+
 /* ===========================================================================
    Reflection
    =========================================================================== */

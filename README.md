@@ -78,6 +78,35 @@ Open the local URL, enter your email, click the magic link, and you're in.
 
 ---
 
+## Google Calendar (optional)
+
+The **Today** section can connect to Google Calendar — each person connects
+their own account, sees their own events, can add events, and gets a **Join**
+button on meetings that have a video link. Until it's set up, Today falls back
+to a simple manual list, so nothing breaks.
+
+One-time setup:
+
+1. Go to **https://console.cloud.google.com** and create a project (any name).
+2. **APIs & Services → Library →** search **Google Calendar API → Enable**.
+3. **APIs & Services → OAuth consent screen:** choose **External**, fill in the
+   app name + your email, and under **Test users** add both Gmail addresses
+   (Jordyn's and Ty's). You can leave it in "Testing" — no Google verification
+   needed for just the two of you.
+4. **APIs & Services → Credentials → Create credentials → OAuth client ID →**
+   Application type **Web application**. Under **Authorized JavaScript origins**
+   add:
+   - `https://tjlife.netlify.app`
+   - `http://localhost:5173` (for local dev, optional)
+5. Copy the **Client ID** it gives you (ends in `.apps.googleusercontent.com`).
+6. Add it as an environment variable named `VITE_GOOGLE_CLIENT_ID` — in Netlify
+   (**Project configuration → Environment variables**) and/or your local
+   `.env` — then redeploy.
+
+After that, open the app, go to the Jordyn or Ty view, and click **Connect
+Google Calendar** in the Today card. Tokens stay in your browser only; they're
+never written to the shared database.
+
 ## Deploying to Netlify
 
 1. Push this repo to GitHub and "New site from Git" in Netlify.

@@ -10,6 +10,7 @@ import {
 } from '../lib/week'
 import { uid } from '../lib/uid'
 import { celebrate } from '../lib/confetti'
+import TodayCard from './TodayCard'
 
 const PERSON_LABEL = { jordyn: 'Jordyn', ty: 'Ty' }
 
@@ -194,43 +195,15 @@ export default function ThisWeekView({ person, data, setData, lanes }) {
         <AddTask onAdd={addTask} />
       </div>
 
-      {/* Today */}
-      <div className="card">
-        <div className="card-title">Today</div>
-        {(week.today || []).length === 0 && (
-          <div className="empty-hint">Nothing on the calendar yet.</div>
-        )}
-        {(week.today || []).map((item) => (
-          <div className="today-row" key={item.id}>
-            <input
-              className="time-input"
-              type="time"
-              value={item.time || ''}
-              onChange={(e) => updateTodayItem(item.id, { time: e.target.value })}
-            />
-            <input
-              className="text-input"
-              value={item.text || ''}
-              placeholder="Event…"
-              onChange={(e) => updateTodayItem(item.id, { text: e.target.value })}
-            />
-            <button
-              className="del-btn"
-              onClick={() => deleteTodayItem(item.id)}
-              aria-label="Remove event"
-            >
-              ✕
-            </button>
-          </div>
-        ))}
-        <button className="add-btn subtle" onClick={addTodayItem} style={{ marginTop: 8 }}>
-          + Add event
-        </button>
-        <div className="today-note">
-          Manual for now — this will sync with Google Calendar in a later
-          session.
-        </div>
-      </div>
+      {/* Today (Google Calendar when connected, manual list otherwise) */}
+      <TodayCard
+        person={person}
+        isCurrent={isCurrent}
+        manualItems={week.today || []}
+        onAddManual={addTodayItem}
+        onUpdateManual={updateTodayItem}
+        onDeleteManual={deleteTodayItem}
+      />
 
       {/* Reflection */}
       <div className="card">

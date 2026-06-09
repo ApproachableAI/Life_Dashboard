@@ -32,7 +32,7 @@ export default function Dashboard({ data, setData, saving, userEmail, onSignOut 
 
       <main className="main">
         {view === 'shared' ? (
-          <SharedView data={data} />
+          <SharedView data={data} setData={setData} />
         ) : (
           // key={view} resets week navigation to the current week when you
           // switch between Jordyn and Ty.

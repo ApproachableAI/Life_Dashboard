@@ -1,6 +1,9 @@
-// Placeholder for the shared zone. These sections are intentionally empty for
-// now — we'll build them in later sessions. The data already lives under
-// data.shared so wiring them up later is just rendering, no schema work.
+import { useState } from 'react'
+import DreamBoard from './DreamBoard'
+
+// The shared zone. Most sections are still placeholders; Dream List is now a
+// real interactive cork board. As we build the others, give them a `component`
+// and they'll open the same way.
 
 const SECTIONS = [
   { key: 'pipeline', label: 'Pipeline' },
@@ -11,11 +14,19 @@ const SECTIONS = [
   { key: 'parkingLot', label: 'Parking Lot' },
   { key: 'winsWall', label: 'Wins Wall' },
   { key: 'bookshelf', label: 'Bookshelf' },
-  { key: 'dreamList', label: 'Dream List' },
+  { key: 'dreamList', label: 'Dream List', ready: true },
 ]
 
-export default function SharedView({ data }) {
+export default function SharedView({ data, setData }) {
+  const [open, setOpen] = useState(null)
   const shared = data.shared ?? {}
+
+  if (open === 'dreamList') {
+    return (
+      <DreamBoard data={data} setData={setData} onBack={() => setOpen(null)} />
+    )
+  }
+
   return (
     <div>
       <div className="view-heading">
@@ -26,10 +37,24 @@ export default function SharedView({ data }) {
       <div className="placeholder-grid">
         {SECTIONS.map((s) => {
           const count = Array.isArray(shared[s.key]) ? shared[s.key].length : 0
+          if (s.ready) {
+            return (
+              <button
+                key={s.key}
+                className="placeholder-card ready"
+                onClick={() => setOpen(s.key)}
+              >
+                <h3>{s.label}</h3>
+                <span>
+                  {count === 0 ? 'Open board →' : `${count} pinned · Open →`}
+                </span>
+              </button>
+            )
+          }
           return (
             <div className="placeholder-card" key={s.key}>
               <h3>{s.label}</h3>
-              <span>{count === 0 ? 'Coming soon' : `${count} items`}</span>
+              <span>Coming soon</span>
             </div>
           )
         })}

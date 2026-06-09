@@ -13,8 +13,8 @@
   --royal: #3451a3;
   --blush: #f9dad6;
   --cream: #e3d0b3;
-  --mustard: #d9bf6a;
-  --mustard-soft: #ecdfb0;
+  --mustard: #e1ad01;
+  --mustard-soft: #f4df93;
 
   /* Semantic roles */
   --bg: var(--mustard-soft);
@@ -51,9 +51,9 @@ body {
   color: var(--text);
   /* Warm light background — muted mustard / golden, calm with personality. */
   background:
-    radial-gradient(1100px 680px at 12% -10%, #efe6c6 0%, transparent 55%),
-    radial-gradient(1000px 760px at 112% 0%, #e4cf86 0%, transparent 52%),
-    linear-gradient(160deg, #f1e9cd 0%, #e8d79f 100%);
+    radial-gradient(1100px 680px at 12% -10%, #f6e9a6 0%, transparent 55%),
+    radial-gradient(1000px 760px at 112% 0%, #e1ad01 0%, transparent 50%),
+    linear-gradient(160deg, #f4e297 0%, #e6bc2e 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }

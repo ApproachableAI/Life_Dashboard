@@ -57,14 +57,13 @@ function Clock() {
   const [now, setNow] = useState(new Date())
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000)
+    const id = setInterval(() => setNow(new Date()), 10000)
     return () => clearInterval(id)
   }, [])
 
   const time = now.toLocaleTimeString(undefined, {
     hour: 'numeric',
     minute: '2-digit',
-    second: '2-digit',
   })
   const date = now.toLocaleDateString(undefined, {
     weekday: 'long',

@@ -60,7 +60,7 @@ export function useGoogleCalendar(person) {
     return clientRef.current
   }
 
-  function requestToken(prompt) {
+  function requestToken(prompt, hint) {
     return new Promise((resolve, reject) => {
       ensureClient()
         .then((client) => {
@@ -68,23 +68,23 @@ export function useGoogleCalendar(person) {
             if (resp.error) reject(resp)
             else resolve(resp)
           }
-          client.requestAccessToken({ prompt })
+          const config = { prompt }
+          // Bind the request to a specific Google account when we know it, so a
+          // silent refresh can't grab a different account that's also signed in.
+          if (hint) config.hint = hint
+          client.requestAccessToken(config)
         })
         .catch(reject)
     })
   }
 
-  // Interactive connect: try a silent grant first, fall back to the consent
-  // popup so already-authorized accounts don't have to re-approve every time.
+  // Interactive connect: always show the account chooser so each person can
+  // pick their own Google account (e.g. Ty's account on Ty's tab), even when
+  // someone else is already signed in to Google in this browser.
   const connect = useCallback(async () => {
     setError(null)
     try {
-      let resp
-      try {
-        resp = await requestToken('')
-      } catch {
-        resp = await requestToken('consent')
-      }
+      const resp = await requestToken('select_account')
       const mail = await fetchUserEmail(resp.access_token)
       persist(resp.access_token, resp.expires_in, mail)
       setToken(resp.access_token)
@@ -101,7 +101,8 @@ export function useGoogleCalendar(person) {
   // has expired.
   const getToken = useCallback(async () => {
     if (token) return token
-    const resp = await requestToken('')
+    // Silent refresh, pinned to this person's known account via the hint.
+    const resp = await requestToken('', email || undefined)
     const mail = email || (await fetchUserEmail(resp.access_token))
     persist(resp.access_token, resp.expires_in, mail)
     setToken(resp.access_token)

@@ -968,6 +968,15 @@ select.lane-select {
   font-weight: 800;
 }
 
+/* Controls bar that sits BELOW each board (board itself stays at the top). */
+.board-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
 /* Wavy / scalloped sage frame around the cork board. The mask carves a wavy
    silhouette out of the green panel on all four edges. Tune --s for wave size
    and --frame for the color. */

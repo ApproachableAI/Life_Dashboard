@@ -106,43 +106,7 @@ export default function Bookshelf({ data, setData }) {
     <div className="bookshelf-section">
       <div className="board-head">
         <h2 className="board-title">Bookshelf</h2>
-        <button className="add-btn subtle" onClick={() => setTrayOpen((o) => !o)}>
-          🪴 Trinket
-        </button>
       </div>
-
-      <div className="shelf-stats">
-        {PEOPLE.map(([p, label]) => (
-          <div className="stat" key={p}>
-            <span className="stat-num">{finished[p]}</span>
-            <span className="stat-label">{label} conquered</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="reading-now">
-        {PEOPLE.map(([p, label]) => (
-          <div key={p}>
-            <strong>{label} is reading:</strong>{' '}
-            {reading[p].length ? reading[p].join(', ') : '—'}
-          </div>
-        ))}
-      </div>
-
-      {trayOpen && (
-        <div className="trinket-tray">
-          {TRINKETS.map((t) => (
-            <button
-              key={t}
-              className="trinket-pick"
-              onClick={() => addTrinket(t)}
-              aria-label={`Add ${t}`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      )}
 
       <div className="bookcase">
         <div className="bookcase-inner">
@@ -197,6 +161,45 @@ export default function Bookshelf({ data, setData }) {
           </div>
         </div>
       </div>
+
+      <div className="shelf-stats">
+        {PEOPLE.map(([p, label]) => (
+          <div className="stat" key={p}>
+            <span className="stat-num">{finished[p]}</span>
+            <span className="stat-label">{label} conquered</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="reading-now">
+        {PEOPLE.map(([p, label]) => (
+          <div key={p}>
+            <strong>{label} is reading:</strong>{' '}
+            {reading[p].length ? reading[p].join(', ') : '—'}
+          </div>
+        ))}
+      </div>
+
+      <div className="board-controls">
+        <button className="add-btn subtle" onClick={() => setTrayOpen((o) => !o)}>
+          🪴 Trinket
+        </button>
+      </div>
+
+      {trayOpen && (
+        <div className="trinket-tray">
+          {TRINKETS.map((t) => (
+            <button
+              key={t}
+              className="trinket-pick"
+              onClick={() => addTrinket(t)}
+              aria-label={`Add ${t}`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      )}
 
       <form className="add-row book-add" onSubmit={addBook}>
         <input

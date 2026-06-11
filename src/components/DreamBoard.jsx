@@ -237,22 +237,6 @@ export default function DreamBoard({ data, setData }) {
     <div className="dream-section">
       <div className="board-head">
         <h2 className="board-title">Dream List</h2>
-        <button className="add-btn subtle" onClick={() => setShowSaved(true)}>
-          ✨ Saved dreams{achieved.length ? ` (${achieved.length})` : ''}
-        </button>
-        <button className="add-btn subtle" onClick={() => fileRef.current?.click()}>
-          📷 Add image
-        </button>
-        <button className="add-btn" onClick={addNote}>
-          + Pin a dream
-        </button>
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          onChange={onPickFile}
-          style={{ display: 'none' }}
-        />
       </div>
 
       <div className="cork-frame">
@@ -362,6 +346,25 @@ export default function DreamBoard({ data, setData }) {
             )
           })}
         </div>
+      </div>
+
+      <div className="board-controls">
+        <button className="add-btn" onClick={addNote}>
+          + Pin a dream
+        </button>
+        <button className="add-btn subtle" onClick={() => fileRef.current?.click()}>
+          📷 Add image
+        </button>
+        <button className="add-btn subtle" onClick={() => setShowSaved(true)}>
+          ✨ Saved dreams{achieved.length ? ` (${achieved.length})` : ''}
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          onChange={onPickFile}
+          style={{ display: 'none' }}
+        />
       </div>
 
       <div className="today-note" style={{ marginTop: 10 }}>

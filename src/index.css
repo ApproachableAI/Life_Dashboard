@@ -1357,9 +1357,59 @@ select.lane-select {
   background: var(--blush);
 }
 
+.shelf-stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stat {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.stat-num {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--royal);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-soft);
+}
+
+.reading-now {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.reading-now strong {
+  color: var(--text);
+}
+
 .bookshelf {
   position: relative;
-  min-height: 58vh;
+  min-height: 50vh;
   max-height: 72vh;
   overflow-y: auto;
   border-radius: 12px;
@@ -1396,17 +1446,82 @@ select.lane-select {
 .book {
   position: relative;
   height: 104px;
-  min-width: 28px;
+  min-width: 30px;
   max-width: 46px;
-  padding: 8px 0;
+  padding: 18px 0 8px;
   border-radius: 3px 3px 1px 1px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  user-select: none;
   box-shadow:
     2px 2px 4px rgba(0, 0, 0, 0.4),
     inset -3px 0 6px rgba(0, 0, 0, 0.28),
     inset 3px 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.book-badges {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.bk-badge {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.56rem;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.bk-badge.read {
+  background: #3a8a3a;
+}
+
+.bk-badge.reading {
+  background: #d99a1a;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.status-name {
+  width: 64px;
+  font-weight: 800;
+}
+
+.status-btn {
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.status-btn.on.reading {
+  background: #f4d27a;
+  border-color: #d99a1a;
+}
+
+.status-btn.on.read {
+  background: #bfe3bf;
+  border-color: #3a8a3a;
 }
 
 .book-title {

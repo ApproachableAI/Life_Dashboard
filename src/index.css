@@ -972,12 +972,15 @@ select.lane-select {
    silhouette out of the green panel on all four edges. Tune --s for wave size
    and --frame for the color. */
 .cork-frame {
-  --s: 20px;
-  --frame: #9cb589;
+  --s: 16px;
   padding: var(--s);
-  background: var(--frame);
+  /* Painted-ceramic gradient gives the green some dimension instead of a flat
+     fill, and drop-shadow follows the wavy silhouette (box-shadow wouldn't). */
+  background:
+    radial-gradient(120% 90% at 30% 15%, rgba(255, 255, 255, 0.45) 0%, transparent 38%),
+    linear-gradient(150deg, #bdd3a9 0%, #9cb589 46%, #7e9c69 100%);
   border-radius: 26px;
-  box-shadow: var(--shadow);
+  filter: drop-shadow(0 10px 16px rgba(45, 55, 30, 0.4));
   -webkit-mask:
     radial-gradient(var(--s) at 50% 0, #000 97%, #0000) repeat-x 50% 0 /
       calc(2 * var(--s)) var(--s),
@@ -1005,8 +1008,11 @@ select.lane-select {
 .corkboard {
   position: relative;
   min-height: 70vh;
-  border-radius: 14px;
-  box-shadow: inset 0 0 55px rgba(60, 30, 0, 0.38);
+  border-radius: 12px;
+  /* Sage inner-edge line + soft inner shadow where cork meets the frame. */
+  box-shadow:
+    inset 0 0 0 3px rgba(120, 145, 95, 0.55),
+    inset 0 0 60px rgba(60, 30, 0, 0.42);
   background-color: #c79a5e;
   /* Speckled cork texture */
   background-image:

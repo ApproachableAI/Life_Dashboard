@@ -60,6 +60,7 @@ export default function DreamBoard({ data, setData }) {
   const [drag, setDrag] = useState(null)
   const [resize, setResize] = useState(null)
   const [colorOpen, setColorOpen] = useState(null)
+  const [showSaved, setShowSaved] = useState(false)
 
   function setList(updater) {
     setData((prev) => ({
@@ -236,6 +237,9 @@ export default function DreamBoard({ data, setData }) {
     <div className="dream-section">
       <div className="board-head">
         <h2 className="board-title">Dream List</h2>
+        <button className="add-btn subtle" onClick={() => setShowSaved(true)}>
+          ✨ Saved dreams{achieved.length ? ` (${achieved.length})` : ''}
+        </button>
         <button className="add-btn subtle" onClick={() => fileRef.current?.click()}>
           📷 Add image
         </button>
@@ -365,32 +369,46 @@ export default function DreamBoard({ data, setData }) {
         ⭐ to mark a dream achieved.
       </div>
 
-      {achieved.length > 0 && (
-        <div className="achieved-panel">
-          <div className="card-title">Achieved dreams ✨ ({achieved.length})</div>
-          {achieved.map((n) => (
-            <div className="achieved-row" key={n.id}>
-              <span className="achieved-star">⭐</span>
-              <span className="achieved-text">
-                {n.type === 'image' ? '📷 (image)' : n.text || '(untitled)'}
-              </span>
-              {n.achievedAt && (
-                <span className="achieved-date">
-                  {new Date(n.achievedAt).toLocaleDateString()}
-                </span>
-              )}
-              <button className="link-btn" onClick={() => restoreNote(n.id)}>
-                Restore
-              </button>
+      {showSaved && (
+        <div className="modal-backdrop" onMouseDown={() => setShowSaved(false)}>
+          <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
+            <div className="modal-head">
+              <h2>Achieved dreams ✨</h2>
               <button
                 className="del-btn"
-                onClick={() => deleteNote(n.id)}
-                aria-label="Delete forever"
+                onClick={() => setShowSaved(false)}
+                aria-label="Close"
               >
                 ✕
               </button>
             </div>
-          ))}
+            {achieved.length === 0 && (
+              <p className="empty-hint">Nothing saved yet.</p>
+            )}
+            {achieved.map((n) => (
+              <div className="achieved-row" key={n.id}>
+                <span className="achieved-star">⭐</span>
+                <span className="achieved-text">
+                  {n.type === 'image' ? '📷 (image)' : n.text || '(untitled)'}
+                </span>
+                {n.achievedAt && (
+                  <span className="achieved-date">
+                    {new Date(n.achievedAt).toLocaleDateString()}
+                  </span>
+                )}
+                <button className="link-btn" onClick={() => restoreNote(n.id)}>
+                  Restore
+                </button>
+                <button
+                  className="del-btn"
+                  onClick={() => deleteNote(n.id)}
+                  aria-label="Delete forever"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

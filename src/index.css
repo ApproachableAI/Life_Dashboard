@@ -1005,9 +1005,27 @@ select.lane-select {
       calc(100% - 2 * var(--s)) calc(100% - 2 * var(--s));
 }
 
+/* Shared tab two-column split: Dream board | Bookshelf */
+.shared-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.split-col {
+  min-width: 0;
+}
+
+@media (max-width: 880px) {
+  .shared-split {
+    grid-template-columns: 1fr;
+  }
+}
+
 .corkboard {
   position: relative;
-  min-height: 70vh;
+  min-height: 58vh;
   border-radius: 12px;
   /* Sage inner-edge line + soft inner shadow where cork meets the frame. */
   box-shadow:
@@ -1306,6 +1324,152 @@ select.lane-select {
   color: var(--text-soft);
   font-weight: 700;
   white-space: nowrap;
+}
+
+/* ===========================================================================
+   Bookshelf
+   =========================================================================== */
+.trinket-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-soft);
+}
+
+.trinket-pick {
+  border: 0;
+  background: var(--surface-soft);
+  border-radius: 8px;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.12s ease;
+}
+
+.trinket-pick:hover {
+  transform: translateY(-2px) scale(1.08);
+  background: var(--blush);
+}
+
+.bookshelf {
+  position: relative;
+  min-height: 58vh;
+  max-height: 72vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 14px 14px 6px;
+  background-color: #4a3526;
+  border: 11px solid #6b4a30;
+  box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.45), var(--shadow);
+}
+
+.shelf-empty {
+  color: rgba(255, 248, 235, 0.6);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 4px;
+}
+
+.shelf-books {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-end;
+  gap: 12px 8px;
+  /* Wooden shelf plank under each 104px row (104 book + 12 gap). */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 104px,
+    rgba(0, 0, 0, 0.5) 104px,
+    rgba(20, 10, 4, 0.5) 110px,
+    transparent 116px
+  );
+}
+
+.book {
+  position: relative;
+  height: 104px;
+  min-width: 28px;
+  max-width: 46px;
+  padding: 8px 0;
+  border-radius: 3px 3px 1px 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.4),
+    inset -3px 0 6px rgba(0, 0, 0, 0.28),
+    inset 3px 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.book-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-weight: 800;
+  font-size: 0.72rem;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+  overflow: hidden;
+  max-height: 90px;
+  text-overflow: ellipsis;
+}
+
+.trinket {
+  position: relative;
+  height: 104px;
+  min-width: 34px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.item-del {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 0.58rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.book:hover .item-del,
+.trinket:hover .item-del {
+  opacity: 1;
+}
+
+.book-add {
+  align-items: center;
+}
+
+.book-color {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 2px;
+  background: var(--surface);
+  cursor: pointer;
 }
 
 @media (max-width: 560px) {

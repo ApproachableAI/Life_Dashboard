@@ -4,6 +4,7 @@ const PEOPLE = [
   { id: 'jordyn', label: 'Jordyn' },
   { id: 'ty', label: 'Ty' },
   { id: 'shared', label: 'Shared' },
+  { id: 'business', label: 'Business' },
 ]
 
 export default function TopBar({

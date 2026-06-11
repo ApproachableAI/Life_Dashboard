@@ -235,10 +235,6 @@ export default function DreamBoard({ data, setData }) {
 
   return (
     <div className="dream-section">
-      <div className="board-head">
-        <h2 className="board-title">Dream List</h2>
-      </div>
-
       <div className="cork-frame">
         <div
           className="corkboard"

@@ -4,15 +4,7 @@ import Bookshelf from './Bookshelf'
 // The shared zone. Dream List (cork board) and Bookshelf sit side by side; the
 // remaining sections are visible placeholders for now.
 
-const PLACEHOLDERS = [
-  { key: 'pipeline', label: 'Pipeline' },
-  { key: 'contentEngine', label: 'Content Engine' },
-  { key: 'businessGoals', label: 'Business Goals' },
-  { key: 'launchpad', label: 'Launchpad' },
-  { key: 'syncSpace', label: 'Sync Space' },
-  { key: 'parkingLot', label: 'Parking Lot' },
-  { key: 'winsWall', label: 'Wins Wall' },
-]
+const PLACEHOLDERS = [{ key: 'winsWall', label: 'Wins Wall' }]
 
 export default function SharedView({ data, setData }) {
   return (

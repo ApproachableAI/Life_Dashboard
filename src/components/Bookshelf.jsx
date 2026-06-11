@@ -104,10 +104,6 @@ export default function Bookshelf({ data, setData }) {
 
   return (
     <div className="bookshelf-section">
-      <div className="board-head">
-        <h2 className="board-title">Bookshelf</h2>
-      </div>
-
       <div className="bookcase">
         <div className="bookcase-inner">
           {items.length === 0 && (

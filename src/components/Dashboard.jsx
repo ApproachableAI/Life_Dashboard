@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import TopBar from './TopBar'
 import ThisWeekView from './ThisWeekView'
 import SharedView from './SharedView'
+import BusinessView from './BusinessView'
 import LaneSettings from './LaneSettings'
 
 export default function Dashboard({ data, setData, saving, userEmail, onSignOut }) {
@@ -33,6 +34,8 @@ export default function Dashboard({ data, setData, saving, userEmail, onSignOut 
       <main className="main">
         {view === 'shared' ? (
           <SharedView data={data} setData={setData} />
+        ) : view === 'business' ? (
+          <BusinessView data={data} setData={setData} />
         ) : (
           // key={view} resets week navigation to the current week when you
           // switch between Jordyn and Ty.

@@ -144,11 +144,12 @@ export default function Bookshelf({ data, setData }) {
         </div>
       )}
 
-      <div className="bookshelf">
-        {items.length === 0 && (
-          <div className="shelf-empty">Add a book to start your shelf 📚</div>
-        )}
-        <div className="shelf-books">
+      <div className="bookcase">
+        <div className="bookcase-inner">
+          {items.length === 0 && (
+            <div className="shelf-empty">Add a book to start your shelf 📚</div>
+          )}
+          <div className="shelf-books">
           {items.map((it, i) => {
             const common = {
               draggable: true,
@@ -193,6 +194,7 @@ export default function Bookshelf({ data, setData }) {
               </div>
             )
           })}
+          </div>
         </div>
       </div>
 

@@ -18,8 +18,9 @@ function AuthedApp() {
   const [loaded, setLoaded] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  // Skip the auto-save that would otherwise fire right after we load the data.
-  const skipSave = useRef(true)
+  // Snapshot of what's currently persisted, so we only write real changes (and
+  // never skip the carry-forward that runs right after load).
+  const lastSaved = useRef(null)
 
   // --- Auth session wiring ---------------------------------------------------
   useEffect(() => {
@@ -38,7 +39,7 @@ function AuthedApp() {
     if (!session) {
       setData(null)
       setLoaded(false)
-      skipSave.current = true
+      lastSaved.current = null
       return
     }
     let cancelled = false
@@ -56,11 +57,14 @@ function AuthedApp() {
       }
 
       if (row && row.data && Object.keys(row.data).length) {
-        setData(withDefaults(row.data))
+        const loadedData = withDefaults(row.data)
+        setData(loadedData)
+        lastSaved.current = JSON.stringify(loadedData)
       } else {
         // First time in: seed the default blob and persist it.
         const seeded = defaultData()
         setData(seeded)
+        lastSaved.current = JSON.stringify(seeded)
         await supabase.from('dashboards').upsert(
           {
             user_id: session.user.id,
@@ -70,7 +74,6 @@ function AuthedApp() {
           { onConflict: 'user_id' },
         )
       }
-      skipSave.current = true
       setLoaded(true)
     })()
     return () => {
@@ -81,10 +84,8 @@ function AuthedApp() {
   // --- Debounced auto-save ---------------------------------------------------
   useEffect(() => {
     if (!loaded || !data || !session) return
-    if (skipSave.current) {
-      skipSave.current = false
-      return
-    }
+    const snapshot = JSON.stringify(data)
+    if (snapshot === lastSaved.current) return // nothing actually changed
     setSaving(true)
     const handle = setTimeout(async () => {
       const { error } = await supabase.from('dashboards').upsert(
@@ -96,6 +97,7 @@ function AuthedApp() {
         { onConflict: 'user_id' },
       )
       if (error) console.error('Auto-save failed:', error)
+      else lastSaved.current = snapshot
       setSaving(false)
     }, 800)
     return () => clearTimeout(handle)
